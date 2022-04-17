@@ -47,6 +47,22 @@ namespace RecipeBookBL.Controller
             Save<Product>(ExistingProducts);
         }
 
+        public int[] FindByName(string name)
+        {
+            var indexes = new List<int>();
+
+            foreach (var item in ExistingProducts)
+            {
+                if (item.Name != null && item.Name.Contains(name))
+                {
+                    indexes.Add(ExistingProducts.FindIndex(x => x.Name == item.Name));
+                }
+            }
+
+            return indexes.ToArray();
+        }
+
+
         public void SetProduct(string name)
         {
             if (string.IsNullOrWhiteSpace(name))

@@ -28,10 +28,13 @@ namespace RecipeBook
 
 
 
+            while(true)
+            {
+                MainMenu();
+            }
 
 
-
-            MainMenu();
+          
        
         }
 
@@ -98,22 +101,77 @@ namespace RecipeBook
 
             }
         }
+        private static void MenuFindRecipeByName()
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("Введите название (или часть названия) рецепта:");
+                var name = ParseString();
+
+                var result = recipeController.FindByName(name);
+          
+                if (result.Length <= 7 && result.Length > 0)
+                {
+                    // Выбираем из 7 вариантов нужный
+                    ChooseRecipe(result);
+                    break;
+                }
+                else
+                {
+                    // Вводим более точное название если вариантов 0, или больше 7
+                    Console.WriteLine($"Найдено рецептов: {result.Length}");
+                    Console.WriteLine("Необходимо более точное название рецепта.");
+                    Console.ReadKey();
+                }
+
+                
+            }
+      
+
+        }
+
+        private static void ChooseRecipe(int[] indexes)
+        {
+            Console.Clear();
+            menuItems.Clear();
+            menuItems.Add($"Найдено рецептов: {indexes.Length}");
+            menuItems.Add("Выберите необходимый рецепт\n");
+
+            foreach (var item in indexes)
+            {
+                menuItems.Add(recipeController.GetRecipeByIndex(item));
+            }
+
+            menuItems.Add("\n" + Languages.Messages.GoBack);
+
+
+            var answer = UserChoice(3);
+            if (answer == menuItems.Count-1) // Назад
+            {
+                MenuFindRecipeByName();
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine(recipeController.GetRecipeByIndex(answer, shorted: false));
+                Console.ReadKey();
+            }
+         
+        }
 
         private static void MenuFindRecipeByProduct()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); // TODO: 
         }
 
-        private static void MenuFindRecipeByName()
-        {
-            throw new NotImplementedException();
-        }
+
 
         private static void MenuCreateRecipe()
         {
             Console.Clear();
             Console.WriteLine("Введите название нового рецепта");
-            var recipename = Console.ReadLine();
+            var recipename = ParseString();
             recipeController.AddToRecipe(name: recipename, null);
 
             while (true)
@@ -136,11 +194,11 @@ namespace RecipeBook
                     case 2:
                         Console.Clear();
                         Console.WriteLine("Введите название нового продукта:");
-                        var name = Console.ReadLine();
+                        var name = ParseString();
                         if (productController.IsExist(name))
                         {
                             Console.WriteLine("Данный продукт уже существует");
-                            Console.Read();
+                            Console.ReadKey();
                             Console.Clear();
                         }
                         else
@@ -319,6 +377,19 @@ namespace RecipeBook
             return result;
         }
 
+        public static string ParseString()
+        {
+            string result = Console.ReadLine();
+
+            while (string.IsNullOrWhiteSpace(result))
+            {
+                Console.WriteLine($"Answer can`t be empty");
+                result = Console.ReadLine();
+
+            }
+
+            return result;
+        }
 
 
     }

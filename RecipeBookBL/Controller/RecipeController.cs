@@ -67,24 +67,41 @@ namespace RecipeBookBL.Controller
         }
 
 
-        public bool FindByName(string name)
+        public int[] FindByName(string name)
         {
-            var recipe = Recipes.SingleOrDefault(x => x.Name == name);
+            var indexes = new List<int>();
 
-            if (recipe != null)
+            var count = 0;
+
+            foreach (var item in Recipes)
             {
-                CurrentRecipe = recipe;
-                return true;
+                if (item.Name != null && item.Name.Contains(name))
+                {
+                    count++;
+                    indexes.Add(Recipes.FindIndex(x => x.Name == item.Name));
+
+                }
             }
-
-            return false;
-
-
+          
+            return indexes.ToArray();
         }
 
         public void FindByProduct()
         {
 
+        }
+
+        public string GetRecipeByIndex(int index, bool shorted = true)
+        {
+            if (shorted)
+            {
+                return Recipes[index].Name;
+            }
+            else
+            {
+                return Recipes[index].ToString();
+            }
+            
         }
 
 
