@@ -21,22 +21,19 @@ namespace RecipeBook
             /* Программа - книга рецептов 
              * Возможности: 
              * Локализация (стоит ли?)
-             * Подбор подходящего рецепта по ингредиентам 
+             * Подбор подходящего рецепта по ингредиентам   - реализовано (поиск по продуктам в наличии)
              * Возможность добавить свой рецепт             - реализовано (в том числе добавление продукта которого нет в базе)
              * Сериализация рецептов (сохранение в файл)    - реализовано
              */
 
-
-
-            while(true)
+            while (true)
             {
                 MainMenu();
             }
-
-
-          
-       
         }
+
+
+
 
         private static void MainMenu()
         {
@@ -162,10 +159,152 @@ namespace RecipeBook
 
         private static void MenuFindRecipeByProduct()
         {
-            throw new NotImplementedException(); // TODO: 
+            var productIndexes = new List<int>();
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("Введите название (или часть названия) продукта:");
+                var name = ParseString();
+
+                var result = productController.FindByName(name);
+
+                if (result.Length <= 7 && result.Length > 0)
+                {
+                    // Выбираем из 7 вариантов нужный
+                    var productIndex = ChooseProduct(result);
+
+                    if (productIndexes.Count > 0 && productIndexes.Contains(productIndex))
+                    {
+                        Console.WriteLine($"Продукт {productController.GetProductName(productIndex)} уже был добавлен для поиска. \nПовторите попытку.");
+                        Console.ReadKey();
+                        continue; // Возврат в начало цикла
+                    }
+
+                    if (productIndex != 0)
+                    {
+                        productIndexes.Add(productIndex);
+                        Console.WriteLine($"Продукт {productController.GetProductName(productIndex)} добавлен для поиска.");
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+
+                    Console.WriteLine("Что бы добавить в поиск следующий продукт нажмите Y, что бы завершить добавление продуктов для поиска нажмите N");
+                    if (!AskYesOrNo())
+                    {   // Если true  - продолжаем работу, если false - переходим к поиску рецепта.
+
+                        var productNames = productController.GetProductName(productIndexes.ToArray());
+                        var recipeIndexes = recipeController.FindByProduct(productNames);
+
+                        if (recipeIndexes.Length > 0)
+                        {
+                            var recipe = ChooseRecipeFromFounded(recipeIndexes);
+                            Console.WriteLine("Приятного приготовления! \n");
+                            Console.WriteLine(recipeController.GetRecipeByIndex(recipe, false));
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Не удалось найти рецепт с данной комбинацией продуктов: \n");
+
+                            foreach (var names in productNames)
+                            {
+                                Console.WriteLine(names);
+                            }
+
+                            Console.WriteLine("\nПопробуйте еще раз.");
+
+                            Console.ReadKey();
+                        }
+                        
+                    
+
+                        break;
+                    }
+                }
+                else
+                {
+                    // Вводим более точное название если вариантов 0, или больше 7
+                    Console.WriteLine($"Найдено продуктов: {result.Length}");
+                    Console.WriteLine("Необходимо более точное название продукта.");
+                    Console.ReadKey();
+                }
+
+            }
         }
 
 
+        private static int ChooseRecipeFromFounded(int[] recipeIndexes)
+        {
+            Console.Clear();
+            menuItems.Clear();
+            menuItems.Add($"Найдено рецептов с данными продуктами: {recipeIndexes.Length}");
+            menuItems.Add("Выберите необходимый рецепт\n");
+
+            foreach (var recipeIndex in recipeIndexes)
+            {
+                menuItems.Add(recipeController.GetRecipeByIndex(recipeIndex));
+            }
+
+            menuItems.Add("\n" + Languages.Messages.GoBack);
+
+
+            var answer = UserChoice(3);
+            if (answer == menuItems.Count - 1) // Назад
+            {
+                MenuFindRecipeByProduct();
+            }
+            else
+            {
+                Console.Clear();
+                if (answer - 2 >= 0)
+                {
+                    return recipeIndexes[answer - 2];
+                }
+
+            }
+
+            return 0;
+
+        }
+
+        private static int ChooseProduct(int[] indexes)
+        {
+            Console.Clear();
+            menuItems.Clear();
+            menuItems.Add($"Найдено продуктов: {indexes.Length}");
+            menuItems.Add("Выберите необходимый продукт\n");
+
+            foreach (var item in indexes)
+            {
+                menuItems.Add(productController.GetProductName(item));
+            }
+
+            menuItems.Add("\n" + Languages.Messages.GoBack);
+
+
+            var answer = UserChoice(3);
+            if (answer == menuItems.Count - 1) // Назад
+            {
+                MenuFindRecipeByProduct();
+            }
+            else
+            {
+                Console.Clear();
+                if (answer - 2 >= 0)
+                {
+                    return indexes[answer - 2];
+                }
+               
+            }
+
+            return 0;
+
+        }
 
         private static void MenuCreateRecipe()
         {
@@ -350,7 +489,7 @@ namespace RecipeBook
         {
             while (true)
             {             
-                var key = Console.ReadKey().Key;
+                var key = Console.ReadKey(true).Key;
 
                 if (key == ConsoleKey.Y)
                 {
@@ -360,7 +499,7 @@ namespace RecipeBook
                 {
                     return false;
                 }
-
+         
             }
         }
 

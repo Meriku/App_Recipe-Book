@@ -24,6 +24,18 @@ namespace RecipeBookBL.Model
             _recipe = products;
         }
 
+        public bool IsContainsProduct(string name)
+        {
+            foreach (var prod in _recipe)
+            {
+                if (prod.Name.ToLower().Equals(name.ToLower()))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         public override string ToString()
         {

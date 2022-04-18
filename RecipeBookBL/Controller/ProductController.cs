@@ -51,11 +51,11 @@ namespace RecipeBookBL.Controller
         {
             var indexes = new List<int>();
 
-            foreach (var item in ExistingProducts)
+            for (int i = 0; i < ExistingProducts.Count; i++)
             {
-                if (item.Name != null && item.Name.Contains(name))
+                if (ExistingProducts[i].Name != null && ExistingProducts[i].Name.ToLower().Contains(name.ToLower()))
                 {
-                    indexes.Add(ExistingProducts.FindIndex(x => x.Name == item.Name));
+                    indexes.Add(i);
                 }
             }
 
@@ -82,8 +82,6 @@ namespace RecipeBookBL.Controller
             }
 
             CurrentProduct = ExistingProducts[index];
-
-
         }
 
         public void SetProductValue(double value)
@@ -106,6 +104,18 @@ namespace RecipeBookBL.Controller
         {
             return ExistingProducts[index].Value.Name;
         }
+        public string[] GetProductName(int[] indexes)
+        {
+            var names = new string[indexes.Length];   
+
+            for (int i = 0; i < names.Length; i++)
+            {
+                names[i] = ExistingProducts[indexes[i]].ToString();
+            }
+ 
+            return names;
+        }
+
 
 
     }

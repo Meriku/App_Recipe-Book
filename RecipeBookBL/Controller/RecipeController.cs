@@ -60,10 +60,7 @@ namespace RecipeBookBL.Controller
             else
             {
                 throw new Exception("Can`t save recipe. Invalid arguments.", new SystemException(nameof(Recipe)));
-            }
-
-
-          
+            }        
         }
 
 
@@ -71,23 +68,41 @@ namespace RecipeBookBL.Controller
         {
             var indexes = new List<int>();
 
-            var count = 0;
-
-            foreach (var item in Recipes)
+            for (int i = 0; i < Recipes.Count; i++)
             {
-                if (item.Name != null && item.Name.Contains(name))
+                if (Recipes[i].Name != null && Recipes[i].Name.ToLower().Contains(name.ToLower()))
                 {
-                    count++;
-                    indexes.Add(Recipes.FindIndex(x => x.Name == item.Name));
-
+                    indexes.Add(i);
                 }
             }
-          
+
             return indexes.ToArray();
         }
 
-        public void FindByProduct()
+        public int[] FindByProduct(string[] names)
         {
+            var recipeindexes = new List<int>();    
+            
+            for (int i = 0; i < Recipes.Count; i++)
+            {
+                var sucsesffulCheckCount = 0;
+
+                foreach (string name in names)
+                {
+                    if (Recipes[i].IsContainsProduct(name))
+                    {
+                        sucsesffulCheckCount++;
+                    }
+                }
+
+                if (sucsesffulCheckCount == names.Length)
+                {
+                    recipeindexes.Add(i);                 
+                }
+
+            }
+
+            return recipeindexes.ToArray();
 
         }
 
