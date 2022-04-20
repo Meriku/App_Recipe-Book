@@ -1,6 +1,7 @@
 ﻿using RecipeBookBL.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,12 +18,14 @@ namespace RecipeBookBL.Controller
 
         private List<Product> RecipeProductList;
 
-        private List<Recipe> Recipes; 
+        private List<Recipe> Recipes;
 
-        public RecipeController()
+        private CultureInfo Culture;
+
+        public RecipeController(CultureInfo culture)
         {
-
-            Recipes = Load<Recipe>();
+            Culture = culture;
+            Recipes = Load<Recipe>(Culture);
             RecipeProductList = new List<Product>();
 
         }
@@ -55,7 +58,7 @@ namespace RecipeBookBL.Controller
             {
                 CurrentRecipe = new Recipe(Name, Description, RecipeProductList);
                 Recipes.Add(CurrentRecipe);
-                Save<Recipe>(Recipes);
+                Save<Recipe>(Recipes, Culture);
             }
             else
             {

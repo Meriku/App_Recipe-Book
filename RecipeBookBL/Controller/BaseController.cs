@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -11,10 +12,11 @@ namespace RecipeBookBL.Controller
     public class BaseController
     {
 
-        public void Save<T>(List<T> item)
+        public void Save<T>(List<T> item, CultureInfo culture)
         {
             var formatter = new BinaryFormatter();
-            var fileName = $"{typeof(T).Name}.dat";
+
+            var fileName = $"{typeof(T).Name}_{culture.Name}.dat";
 
             using (var fs = new FileStream(fileName, FileMode.OpenOrCreate))
             {
@@ -22,10 +24,10 @@ namespace RecipeBookBL.Controller
             }
         }
 
-        protected List<T> Load<T>()
+        protected List<T> Load<T>(CultureInfo culture)
         {
             var formatter = new BinaryFormatter();
-            var fileName = $"{typeof(T).Name}.dat";
+            var fileName = $"{typeof(T).Name}_{culture.Name}.dat";
 
             using (var fs = new FileStream(fileName, FileMode.OpenOrCreate))
             {

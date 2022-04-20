@@ -61,11 +61,137 @@ namespace RecipeBook.Languages {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на успешно добавлен в программу и в ваш рецепт..
+        /// </summary>
+        public static string AddNewProductToRecipe {
+            get {
+                return ResourceManager.GetString("AddNewProductToRecipe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Что бы добавить в поиск следующий продукт нажмите Y, что бы завершить добавление продуктов для поиска нажмите N.
+        /// </summary>
+        public static string AddNextProductOrExit {
+            get {
+                return ResourceManager.GetString("AddNextProductOrExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на  добавлен для поиска..
+        /// </summary>
+        public static string AddProductForSearch {
+            get {
+                return ResourceManager.GetString("AddProductForSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на успешно добавлен в ваш рецепт..
+        /// </summary>
+        public static string AddProductToRecipe {
+            get {
+                return ResourceManager.GetString("AddProductToRecipe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Что бы добавить следующий продукт нажмите Y, что бы завершить добавление продуктов нажмите N.
+        /// </summary>
+        public static string AddTheNextProductOrExit {
+            get {
+                return ResourceManager.GetString("AddTheNextProductOrExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Создать новый продукт?.
         /// </summary>
         public static string ASKCreateNewProduct {
             get {
                 return ResourceManager.GetString("ASKCreateNewProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Выберите необходимый продукт.
+        /// </summary>
+        public static string ChooseProduct {
+            get {
+                return ResourceManager.GetString("ChooseProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Выберите продукт который хотите добавить в рецепт:.
+        /// </summary>
+        public static string ChooseProductForRecipe {
+            get {
+                return ResourceManager.GetString("ChooseProductForRecipe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Выберите необходимый рецепт.
+        /// </summary>
+        public static string ChooseRecipe {
+            get {
+                return ResourceManager.GetString("ChooseRecipe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Выберите меру измерения для данного продукта.
+        /// </summary>
+        public static string ChooseUnitsForProduct {
+            get {
+                return ResourceManager.GetString("ChooseUnitsForProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Какое количество продукта необходимо в данном рецепте? Указывать в:.
+        /// </summary>
+        public static string CountOfProductNeaded {
+            get {
+                return ResourceManager.GetString("CountOfProductNeaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Приятного приготовления!.
+        /// </summary>
+        public static string Enjoy_your_meal {
+            get {
+                return ResourceManager.GetString("Enjoy your meal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите название (или часть названия) продукта:.
+        /// </summary>
+        public static string Enter_product_name {
+            get {
+                return ResourceManager.GetString("Enter product name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите название (или часть названия) рецепта:.
+        /// </summary>
+        public static string Enter_recipe_name {
+            get {
+                return ResourceManager.GetString("Enter recipe name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите название нового продукта:.
+        /// </summary>
+        public static string EnterNameofNewProduct {
+            get {
+                return ResourceManager.GetString("EnterNameofNewProduct", resourceCulture);
             }
         }
         
@@ -84,6 +210,15 @@ namespace RecipeBook.Languages {
         public static string EnterProductName {
             get {
                 return ResourceManager.GetString("EnterProductName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите описание процесса приготовления для рецепта.
+        /// </summary>
+        public static string EnterRecipeDescription {
+            get {
+                return ResourceManager.GetString("EnterRecipeDescription", resourceCulture);
             }
         }
         
@@ -120,6 +255,33 @@ namespace RecipeBook.Languages {
         public static string FirstSecondaryMenuItem {
             get {
                 return ResourceManager.GetString("FirstSecondaryMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Найдено продуктов:.
+        /// </summary>
+        public static string Found_Products_Count {
+            get {
+                return ResourceManager.GetString("Found Products Count", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Найдено рецептов: .
+        /// </summary>
+        public static string Found_Recipes_Count {
+            get {
+                return ResourceManager.GetString("Found Recipes Count", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Найдено рецептов с данными продуктами:.
+        /// </summary>
+        public static string FoundRecipeCount {
+            get {
+                return ResourceManager.GetString("FoundRecipeCount", resourceCulture);
             }
         }
         
@@ -250,11 +412,47 @@ namespace RecipeBook.Languages {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Необходимо более точное название..
+        /// </summary>
+        public static string More_Precise_name_is_required {
+            get {
+                return ResourceManager.GetString("More Precise name is required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Новый продукт.
+        /// </summary>
+        public static string NewProduct {
+            get {
+                return ResourceManager.GetString("NewProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на По вкусу.
         /// </summary>
         public static string PerTaste {
             get {
                 return ResourceManager.GetString("PerTaste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на  уже был добавлен для поиска. Повторите попытку..
+        /// </summary>
+        public static string ProductAlreadyAddedToSearch {
+            get {
+                return ResourceManager.GetString("ProductAlreadyAddedToSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Данный продукт уже существует.
+        /// </summary>
+        public static string ProductAlreadyExist {
+            get {
+                return ResourceManager.GetString("ProductAlreadyExist", resourceCulture);
             }
         }
         
@@ -273,6 +471,15 @@ namespace RecipeBook.Languages {
         public static string ProductIsNotExist {
             get {
                 return ResourceManager.GetString("ProductIsNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ваш рецепт создан и добавлен в базу программы..
+        /// </summary>
+        public static string RecipeWasAddedtoDB {
+            get {
+                return ResourceManager.GetString("RecipeWasAddedtoDB", resourceCulture);
             }
         }
         
@@ -304,6 +511,15 @@ namespace RecipeBook.Languages {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Не удалось найти рецепт с данной комбинацией продуктов:.
+        /// </summary>
+        public static string SuchRecipeNotExist {
+            get {
+                return ResourceManager.GetString("SuchRecipeNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Столовая ложка.
         /// </summary>
         public static string Tablespoon {
@@ -318,6 +534,15 @@ namespace RecipeBook.Languages {
         public static string Tablespoons {
             get {
                 return ResourceManager.GetString("Tablespoons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Попробуйте еще раз..
+        /// </summary>
+        public static string TryAgain {
+            get {
+                return ResourceManager.GetString("TryAgain", resourceCulture);
             }
         }
     }

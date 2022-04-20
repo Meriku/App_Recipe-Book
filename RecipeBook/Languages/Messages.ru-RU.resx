@@ -124,7 +124,7 @@
     <value>Что бы добавить в поиск следующий продукт нажмите Y, что бы завершить добавление продуктов для поиска нажмите N</value>
   </data>
   <data name="AddProductForSearch" xml:space="preserve">
-    <value> добавлен для поиска.</value>
+    <value>добавлен для поиска.</value>
   </data>
   <data name="AddProductToRecipe" xml:space="preserve">
     <value>успешно добавлен в ваш рецепт.</value>
@@ -134,9 +134,6 @@
   </data>
   <data name="ASKCreateNewProduct" xml:space="preserve">
     <value>Создать новый продукт?</value>
-  </data>
-  <data name="ChooseProduct" xml:space="preserve">
-    <value>Выберите необходимый продукт</value>
   </data>
   <data name="ChooseProductForRecipe" xml:space="preserve">
     <value>Выберите продукт который хотите добавить в рецепт:</value>

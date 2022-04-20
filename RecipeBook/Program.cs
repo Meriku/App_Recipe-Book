@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using RecipeBookBL.Controller;
@@ -11,27 +13,70 @@ namespace RecipeBook
     {
 
         static List<string> menuItems = new List<string>();
-        static ProductController productController = new ProductController();
-        static RecipeController recipeController = new RecipeController();
-
+        static ProductController productController;
+        static RecipeController recipeController;
+        static CultureInfo culture;
+        static ResourceManager resourceManager = new ResourceManager("RecipeBook.Languages.Messages", typeof(Program).Assembly);
 
         static void Main(string[] args)
         {
 
             /* Программа - книга рецептов 
              * Возможности: 
-             * Локализация (стоит ли?)
+             * Локализация                                  - реализовано (в том числе загрузка различных сериализованных файлов в зависимости от языка)
              * Подбор подходящего рецепта по ингредиентам   - реализовано (поиск по продуктам в наличии)
              * Возможность добавить свой рецепт             - реализовано (в том числе добавление продукта которого нет в базе)
              * Сериализация рецептов (сохранение в файл)    - реализовано
              */
 
+            ChooseLanguage();
+
+            productController = new ProductController(culture);
+            recipeController = new RecipeController(culture);
+
             while (true)
             {
                 MainMenu();
             }
+
+
         }
 
+
+        private static void ChooseLanguage()
+        {
+            Console.Clear();
+            menuItems.Clear();
+            menuItems.Add("Choose your language:");
+            menuItems.Add("");
+            menuItems.Add("English");
+            menuItems.Add("Russian");
+            menuItems.Add("\nExit");
+
+
+            switch (UserChoice())
+            {
+                case 2:
+                    culture = CultureInfo.CreateSpecificCulture("en-US");
+                    break;
+                case 3:
+                    culture = CultureInfo.CreateSpecificCulture("ru-RU");
+                    break;
+                case 4:
+                    Console.WriteLine(Languages.Messages.EnterYorN);
+                    if (AskYesOrNo())
+                    {
+                        Environment.Exit(0);
+                    }
+                    else
+                    {
+                        ChooseLanguage();
+                    }
+                    break;
+
+            }
+
+        }
 
 
 
@@ -39,13 +84,12 @@ namespace RecipeBook
         {
             Console.Clear();
             menuItems.Clear();
-            menuItems.Add(Languages.Messages.MainMenuHeader);
+            menuItems.Add(resourceManager.GetString("MainMenuHeader", culture));
             menuItems.Add("\n");
-            menuItems.Add(Languages.Messages.FirstMainMenuItem);     // Найти рецепт
-            menuItems.Add(Languages.Messages.SecondMainMenuItem);    // Добавить рецепт
-            menuItems.Add("\n" + Languages.Messages.Exit);
+            menuItems.Add(resourceManager.GetString("FirstMainMenuItem", culture));     // Найти рецепт
+            menuItems.Add(resourceManager.GetString("SecondMainMenuItem", culture));    // Добавить рецепт
+            menuItems.Add("\n" + resourceManager.GetString("Exit", culture));
 
-            
 
             switch (UserChoice())
             {
@@ -56,7 +100,7 @@ namespace RecipeBook
                     MenuCreateRecipe();
                     break;
                 case 4:
-                    Console.WriteLine(Languages.Messages.EnterYorN);
+                    Console.WriteLine(resourceManager.GetString("EnterYorN", culture));
                     if (AskYesOrNo())
                     {
                         Environment.Exit(0);
@@ -76,11 +120,11 @@ namespace RecipeBook
         {
             Console.Clear();
             menuItems.Clear();
-            menuItems.Add(Languages.Messages.SecondMenuHeader);
+            menuItems.Add(resourceManager.GetString("SecondMenuHeader", culture));
             menuItems.Add("\n");
-            menuItems.Add(Languages.Messages.FirstSecondaryMenuItem); // Найти по названию
-            menuItems.Add(Languages.Messages.SecondSecondaryMenuItem);// Найти по составным продуктам
-            menuItems.Add("\n" + Languages.Messages.GoBack);
+            menuItems.Add(resourceManager.GetString("FirstSecondaryMenuItem", culture)); // Найти по названию
+            menuItems.Add(resourceManager.GetString("SecondSecondaryMenuItem", culture));// Найти по составным продуктам
+            menuItems.Add("\n" + resourceManager.GetString("GoBack", culture));
 
 
 
@@ -103,7 +147,7 @@ namespace RecipeBook
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Введите название (или часть названия) рецепта:");
+                Console.WriteLine(resourceManager.GetString("Enter recipe name", culture));
                 var name = ParseString();
 
                 var result = recipeController.FindByName(name);
@@ -117,8 +161,8 @@ namespace RecipeBook
                 else
                 {
                     // Вводим более точное название если вариантов 0, или больше 7
-                    Console.WriteLine($"Найдено рецептов: {result.Length}");
-                    Console.WriteLine("Необходимо более точное название рецепта.");
+                    Console.WriteLine(resourceManager.GetString("Found Recipes Count", culture) + result.Length);
+                    Console.WriteLine(resourceManager.GetString("More Precise name is required", culture));
                     Console.ReadKey();
                 }
 
@@ -132,15 +176,15 @@ namespace RecipeBook
         {
             Console.Clear();
             menuItems.Clear();
-            menuItems.Add($"Найдено рецептов: {indexes.Length}");
-            menuItems.Add("Выберите необходимый рецепт\n");
+            menuItems.Add(resourceManager.GetString("Found Recipes Count", culture) + indexes.Length);
+            menuItems.Add(resourceManager.GetString("ChooseRecipe", culture) +  "\n");
 
             foreach (var item in indexes)
             {
                 menuItems.Add(recipeController.GetRecipeByIndex(item));
             }
 
-            menuItems.Add("\n" + Languages.Messages.GoBack);
+            menuItems.Add("\n" + resourceManager.GetString("GoBack", culture));
 
 
             var answer = UserChoice(3);
@@ -164,7 +208,7 @@ namespace RecipeBook
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Введите название (или часть названия) продукта:");
+                Console.WriteLine(resourceManager.GetString("Enter product name", culture));
                 var name = ParseString();
 
                 var result = productController.FindByName(name);
@@ -176,7 +220,7 @@ namespace RecipeBook
 
                     if (productIndexes.Count > 0 && productIndexes.Contains(productIndex))
                     {
-                        Console.WriteLine($"Продукт {productController.GetProductName(productIndex)} уже был добавлен для поиска. \nПовторите попытку.");
+                        Console.WriteLine(productController.GetProductName(productIndex) + resourceManager.GetString("ProductAlreadyAddedToSearch", culture));
                         Console.ReadKey();
                         continue; // Возврат в начало цикла
                     }
@@ -184,7 +228,7 @@ namespace RecipeBook
                     if (productIndex != 0)
                     {
                         productIndexes.Add(productIndex);
-                        Console.WriteLine($"Продукт {productController.GetProductName(productIndex)} добавлен для поиска.");
+                        Console.WriteLine(productController.GetProductName(productIndex) + " " + resourceManager.GetString("AddProductForSearch", culture));
                     }
                     else
                     {
@@ -192,7 +236,7 @@ namespace RecipeBook
                     }
 
 
-                    Console.WriteLine("Что бы добавить в поиск следующий продукт нажмите Y, что бы завершить добавление продуктов для поиска нажмите N");
+                    Console.WriteLine(resourceManager.GetString("AddNextProductOrExit", culture));
                     if (!AskYesOrNo())
                     {   // Если true  - продолжаем работу, если false - переходим к поиску рецепта.
 
@@ -202,21 +246,21 @@ namespace RecipeBook
                         if (recipeIndexes.Length > 0)
                         {
                             var recipe = ChooseRecipeFromFounded(recipeIndexes);
-                            Console.WriteLine("Приятного приготовления! \n");
+                            Console.WriteLine(resourceManager.GetString("Enjoy your meal", culture) + "\n");
                             Console.WriteLine(recipeController.GetRecipeByIndex(recipe, false));
                             Console.ReadKey();
                         }
                         else
                         {
                             Console.Clear();
-                            Console.WriteLine("Не удалось найти рецепт с данной комбинацией продуктов: \n");
+                            Console.WriteLine(resourceManager.GetString("SuchRecipeNotExist", culture) + "\n");
 
                             foreach (var names in productNames)
                             {
                                 Console.WriteLine(names);
                             }
 
-                            Console.WriteLine("\nПопробуйте еще раз.");
+                            Console.WriteLine("\n" + resourceManager.GetString("TryAgain", culture));
 
                             Console.ReadKey();
                         }
@@ -229,8 +273,8 @@ namespace RecipeBook
                 else
                 {
                     // Вводим более точное название если вариантов 0, или больше 7
-                    Console.WriteLine($"Найдено продуктов: {result.Length}");
-                    Console.WriteLine("Необходимо более точное название продукта.");
+                    Console.WriteLine(resourceManager.GetString("Found Products Count", culture) + " " + result.Length);
+                    Console.WriteLine(resourceManager.GetString("More Precise name is required", culture));
                     Console.ReadKey();
                 }
 
@@ -242,15 +286,15 @@ namespace RecipeBook
         {
             Console.Clear();
             menuItems.Clear();
-            menuItems.Add($"Найдено рецептов с данными продуктами: {recipeIndexes.Length}");
-            menuItems.Add("Выберите необходимый рецепт\n");
+            menuItems.Add(resourceManager.GetString("FoundRecipeCount", culture) + " " + recipeIndexes.Length);
+            menuItems.Add(resourceManager.GetString("ChooseRecipe", culture) + "\n");
 
             foreach (var recipeIndex in recipeIndexes)
             {
                 menuItems.Add(recipeController.GetRecipeByIndex(recipeIndex));
             }
 
-            menuItems.Add("\n" + Languages.Messages.GoBack);
+            menuItems.Add("\n" + resourceManager.GetString("GoBack", culture));
 
 
             var answer = UserChoice(3);
@@ -276,15 +320,15 @@ namespace RecipeBook
         {
             Console.Clear();
             menuItems.Clear();
-            menuItems.Add($"Найдено продуктов: {indexes.Length}");
-            menuItems.Add("Выберите необходимый продукт\n");
+            menuItems.Add(resourceManager.GetString("Found Products Count", culture) + " " + indexes.Length);
+            menuItems.Add(resourceManager.GetString("ChooseProduct", culture) + "\n");
 
             foreach (var item in indexes)
             {
                 menuItems.Add(productController.GetProductName(item));
             }
 
-            menuItems.Add("\n" + Languages.Messages.GoBack);
+            menuItems.Add("\n" + resourceManager.GetString("GoBack", culture));
 
 
             var answer = UserChoice(3);
@@ -309,7 +353,7 @@ namespace RecipeBook
         private static void MenuCreateRecipe()
         {
             Console.Clear();
-            Console.WriteLine("Введите название нового рецепта");
+            Console.WriteLine(resourceManager.GetString("EnterNameofNewRecipe", culture));
             var recipename = ParseString();
             recipeController.AddToRecipe(name: recipename, null);
 
@@ -317,14 +361,14 @@ namespace RecipeBook
             {         
             Console.Clear();
             menuItems.Clear();
-            menuItems.Add("Выберите продукт который хотите добавить в рецепт:");
+            menuItems.Add(resourceManager.GetString("ChooseProductForRecipe", culture));
             menuItems.Add("\n");
-            menuItems.Add("Новый продукт");
+            menuItems.Add(resourceManager.GetString("NewProduct", culture));
 
-            for (int i = 0; i < productController.ProdutsCount; i++)
-            {
+                for (int i = 0; i < productController.ProdutsCount; i++)
+                {
                 menuItems.Add(productController.GetProductName(index: i));
-            }
+                }
 
             var answer = UserChoice();
 
@@ -332,11 +376,11 @@ namespace RecipeBook
                 {
                     case 2:
                         Console.Clear();
-                        Console.WriteLine("Введите название нового продукта:");
+                        Console.WriteLine(resourceManager.GetString("EnterNameofNewProduct", culture));
                         var name = ParseString();
                         if (productController.IsExist(name))
                         {
-                            Console.WriteLine("Данный продукт уже существует");
+                            Console.WriteLine(resourceManager.GetString("ProductAlreadyExist", culture));
                             Console.ReadKey();
                             Console.Clear();
                         }
@@ -346,13 +390,13 @@ namespace RecipeBook
                             var units = AskUnitsForNewProduct();
 
                             Console.Clear();
-                            Console.WriteLine($"Какое количество продукта необходимо в данном рецепте? Указывать в: { units } ");
+                            Console.WriteLine($"{resourceManager.GetString("CountOfProductNeaded", culture)} { units } ");
                             double productvalue = ParseDouble();
 
                             productController.CreateProduct(name, units, productvalue);
                             recipeController.AddToRecipe(productController.CurrentProduct);
 
-                            Console.WriteLine($"Вы успешно добавили продукт {name} в программу и в свой рецепт");
+                            Console.WriteLine($"{name} {resourceManager.GetString("AddNewProductToRecipe", culture)}");
 
                         }
                         break;
@@ -361,7 +405,7 @@ namespace RecipeBook
                         productController.SetProduct(index: answer - 3);
 
                         Console.Clear();
-                        Console.WriteLine($"Какое количество продукта необходимо в данном рецепте? Указывать в: { productController.GetProductUnits(answer - 3) } ");
+                        Console.WriteLine($"{resourceManager.GetString("CountOfProductNeaded", culture)} { productController.GetProductUnits(answer - 3) } ");
                         double newProductValue = ParseDouble();
 
                         productController.SetProductValue(newProductValue);
@@ -369,12 +413,12 @@ namespace RecipeBook
 
                         recipeController.AddToRecipe(productController.CurrentProduct);
 
-                        Console.WriteLine($"Добавили продукт {productController.GetProductName(answer - 3)} в рецепт");
+                        Console.WriteLine($"{productController.GetProductName(answer - 3)} {resourceManager.GetString("AddProductToRecipe", culture)}");
                         break;
 
                 }
 
-                Console.WriteLine("Что бы добавить следующий продукт нажмите Y, что бы завершить добавление продуктов нажмите N");
+                Console.WriteLine(resourceManager.GetString("AddTheNextProductOrExit", culture));
                 if (!AskYesOrNo())
                 {
                     break;
@@ -384,14 +428,14 @@ namespace RecipeBook
 
 
             Console.Clear();
-            Console.WriteLine("Введите описание процесса приготовления для рецепта");
+            Console.WriteLine(resourceManager.GetString("EnterRecipeDescription", culture));
 
             var description = Console.ReadLine();
             recipeController.AddToRecipe(null, description);
             recipeController.SaveRecipe();
 
             Console.Clear();
-            Console.WriteLine("Ваш рецепт создан и добавлен в базу программы.");
+            Console.WriteLine(resourceManager.GetString("RecipeWasAddedtoDB", culture));
 
             Console.WriteLine(recipeController.CurrentRecipe);
 
@@ -404,34 +448,34 @@ namespace RecipeBook
         {
             Console.Clear();
             menuItems.Clear();
-            menuItems.Add("Выберите меру измерения для данного продукта");
+            menuItems.Add(resourceManager.GetString("ChooseUnitsForProduct", culture));
             menuItems.Add("\n");
-            menuItems.Add(Languages.Messages.Item);
-            menuItems.Add(Languages.Messages.Kilogram);
-            menuItems.Add(Languages.Messages.Gram);
-            menuItems.Add(Languages.Messages.Liter);
-            menuItems.Add(Languages.Messages.Milliliter);
-            menuItems.Add(Languages.Messages.Tablespoon);
+            menuItems.Add(resourceManager.GetString("Item", culture));
+            menuItems.Add(resourceManager.GetString("Kilogram", culture));
+            menuItems.Add(resourceManager.GetString("Gram", culture));
+            menuItems.Add(resourceManager.GetString("Liter", culture));
+            menuItems.Add(resourceManager.GetString("Milliliter", culture));
+            menuItems.Add(resourceManager.GetString("Tablespoon", culture));        
 
             switch (UserChoice())
             {
                 case 2:
-                    return Languages.Messages.Item;
+                    return resourceManager.GetString("Item", culture);
 
                 case 3:
-                    return Languages.Messages.Kilogram;
+                    return resourceManager.GetString("Kilogram", culture);
                   
                 case 4:
-                    return Languages.Messages.Gram;
+                    return resourceManager.GetString("Gram", culture);
                 
                 case 5:
-                    return Languages.Messages.Liter;
+                    return resourceManager.GetString("Liter", culture);
 
                 case 6:
-                    return Languages.Messages.Milliliter;
+                    return resourceManager.GetString("Milliliter", culture);
 
                 case 7:
-                    return Languages.Messages.Tablespoon;
+                    return resourceManager.GetString("Tablespoon", culture);
 
             }
 

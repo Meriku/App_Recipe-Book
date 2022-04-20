@@ -1,6 +1,7 @@
 ﻿using RecipeBookBL.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,10 +18,13 @@ namespace RecipeBookBL.Controller
 
         public int ProdutsCount { get { return ExistingProducts.Count; } }
 
+        private CultureInfo Culture;
 
-        public ProductController()
+
+        public ProductController(CultureInfo culture)
         {
-            ExistingProducts = Load<Product>();
+            Culture = culture;
+            ExistingProducts = Load<Product>(Culture);
         }
 
         public bool IsExist(string name)
@@ -44,7 +48,7 @@ namespace RecipeBookBL.Controller
         {
             CurrentProduct = new Product(name, new Value(unitsofmeasure, value));
             ExistingProducts.Add(CurrentProduct);
-            Save<Product>(ExistingProducts);
+            Save<Product>(ExistingProducts, Culture);
         }
 
         public int[] FindByName(string name)

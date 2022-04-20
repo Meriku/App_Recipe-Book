@@ -118,165 +118,162 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddNewProductToRecipe" xml:space="preserve">
-    <value>успешно добавлен в программу и в ваш рецепт.</value>
+    <value>has been successfully added to the recipe and database.</value>
   </data>
   <data name="AddNextProductOrExit" xml:space="preserve">
-    <value>Что бы добавить в поиск следующий продукт нажмите Y, что бы завершить добавление продуктов для поиска нажмите N</value>
+    <value>If you want to add another product press Y, if you want to find the recipe press N.</value>
   </data>
   <data name="AddProductForSearch" xml:space="preserve">
-    <value> добавлен для поиска.</value>
+    <value>is added for the search.</value>
   </data>
   <data name="AddProductToRecipe" xml:space="preserve">
-    <value>успешно добавлен в ваш рецепт.</value>
+    <value>has been successfully added to the recipe.</value>
   </data>
   <data name="AddTheNextProductOrExit" xml:space="preserve">
-    <value>Что бы добавить следующий продукт нажмите Y, что бы завершить добавление продуктов нажмите N</value>
+    <value>If you want to add another product press Y, if you want to stop adding products press N.</value>
   </data>
   <data name="ASKCreateNewProduct" xml:space="preserve">
-    <value>Создать новый продукт?</value>
-  </data>
-  <data name="ChooseProduct" xml:space="preserve">
-    <value>Выберите необходимый продукт</value>
+    <value>Create new product?</value>
   </data>
   <data name="ChooseProductForRecipe" xml:space="preserve">
-    <value>Выберите продукт который хотите добавить в рецепт:</value>
+    <value>Choose the product which you want to add to the recipe:</value>
   </data>
   <data name="ChooseRecipe" xml:space="preserve">
-    <value>Выберите необходимый рецепт</value>
+    <value>Choose the recipe</value>
   </data>
   <data name="ChooseUnitsForProduct" xml:space="preserve">
-    <value>Выберите меру измерения для данного продукта</value>
+    <value>Choose units of measurement for this product.</value>
   </data>
   <data name="CountOfProductNeaded" xml:space="preserve">
-    <value>Какое количество продукта необходимо в данном рецепте? Указывать в:</value>
+    <value>Enter the required amount of this product. Units: </value>
   </data>
   <data name="Enjoy your meal" xml:space="preserve">
-    <value>Приятного приготовления!</value>
+    <value>Enjoy your meal!</value>
   </data>
   <data name="Enter product name" xml:space="preserve">
-    <value>Введите название (или часть названия) продукта:</value>
+    <value>Enter product name (or part of name):</value>
   </data>
   <data name="Enter recipe name" xml:space="preserve">
-    <value>Введите название (или часть названия) рецепта:</value>
+    <value>Enter recipe name (or part of name):</value>
   </data>
   <data name="EnterNameofNewProduct" xml:space="preserve">
-    <value>Введите название нового продукта:</value>
+    <value>Enter the name of new product:</value>
   </data>
   <data name="EnterNameofNewRecipe" xml:space="preserve">
-    <value>Введите название нового рецепта:</value>
+    <value>Enter the name of new recipe</value>
   </data>
   <data name="EnterProductName" xml:space="preserve">
-    <value>Введите название продукта</value>
+    <value>Enter the name of product</value>
   </data>
   <data name="EnterRecipeDescription" xml:space="preserve">
-    <value>Введите описание процесса приготовления для рецепта</value>
+    <value>Enter the description of the recipe.</value>
   </data>
   <data name="EnterYorN" xml:space="preserve">
-    <value>Введите Y или N</value>
+    <value>Enter Y or N</value>
   </data>
   <data name="Exit" xml:space="preserve">
-    <value>Выход</value>
+    <value>Exit</value>
+  </data>
+  <data name="Finded Recipes Count" xml:space="preserve">
+    <value>Found recipes count: </value>
   </data>
   <data name="FirstMainMenuItem" xml:space="preserve">
-    <value>Найти рецепт</value>
+    <value>Find recipe</value>
   </data>
   <data name="FirstSecondaryMenuItem" xml:space="preserve">
-    <value>Найти рецепт по названию</value>
+    <value>Find recipe by name</value>
   </data>
   <data name="Found Products Count" xml:space="preserve">
-    <value>Найдено продуктов:</value>
-  </data>
-  <data name="Found Recipes Count" xml:space="preserve">
-    <value>Найдено рецептов: </value>
+    <value>Found products count:</value>
   </data>
   <data name="FoundRecipeCount" xml:space="preserve">
-    <value>Найдено рецептов с данными продуктами:</value>
+    <value>Recipes with this products:</value>
   </data>
   <data name="GoBack" xml:space="preserve">
-    <value>Назад</value>
+    <value>Back</value>
   </data>
   <data name="Gram" xml:space="preserve">
-    <value>Грамм</value>
+    <value>Gram</value>
   </data>
   <data name="Grams" xml:space="preserve">
-    <value>Грамм</value>
+    <value>Grams</value>
   </data>
   <data name="Hello" xml:space="preserve">
-    <value>Добро пожаловать в книгу рецептов 2022!</value>
+    <value>Welcome to RecipeBook 2022!</value>
   </data>
   <data name="IncorrectMenuChoise" xml:space="preserve">
-    <value>Сделайте коректный выбор в меню</value>
+    <value>Choose corect menu item</value>
   </data>
   <data name="Item" xml:space="preserve">
-    <value>Единица</value>
+    <value>Item</value>
   </data>
   <data name="Items" xml:space="preserve">
-    <value>Единиц</value>
+    <value>Items</value>
   </data>
   <data name="Kilogram" xml:space="preserve">
-    <value>Килограмм</value>
+    <value>Kilogram</value>
   </data>
   <data name="Kilograms" xml:space="preserve">
-    <value>Килограмм</value>
+    <value>Kilograms</value>
   </data>
   <data name="Liter" xml:space="preserve">
-    <value>Литр</value>
+    <value>Liter</value>
   </data>
   <data name="Litres" xml:space="preserve">
-    <value>Литров</value>
+    <value>Litres</value>
   </data>
   <data name="MainMenuHeader" xml:space="preserve">
-    <value>Главное меню:</value>
+    <value>Main menu:</value>
   </data>
   <data name="Milliliter" xml:space="preserve">
-    <value>Миллилитр</value>
+    <value>Milliliter</value>
   </data>
   <data name="Milliliters" xml:space="preserve">
-    <value>Миллилитров</value>
+    <value>Milliliters</value>
   </data>
   <data name="More Precise name is required" xml:space="preserve">
-    <value>Необходимо более точное название.</value>
+    <value>More precise name is required.</value>
   </data>
   <data name="NewProduct" xml:space="preserve">
-    <value>Новый продукт</value>
+    <value>Create new product</value>
   </data>
   <data name="PerTaste" xml:space="preserve">
-    <value>По вкусу</value>
+    <value>Per taste</value>
   </data>
   <data name="ProductAlreadyAddedToSearch" xml:space="preserve">
-    <value> уже был добавлен для поиска. Повторите попытку.</value>
+    <value> has already been added to recipe. Add another product. </value>
   </data>
   <data name="ProductAlreadyExist" xml:space="preserve">
-    <value>Данный продукт уже существует</value>
+    <value>This product is already exist.</value>
   </data>
   <data name="ProductExist" xml:space="preserve">
-    <value>Данный продукт существует</value>
+    <value>This product is already exists</value>
   </data>
   <data name="ProductIsNotExist" xml:space="preserve">
-    <value>Данного продукта не существует</value>
+    <value>This product does not exist</value>
   </data>
   <data name="RecipeWasAddedtoDB" xml:space="preserve">
-    <value>Ваш рецепт создан и добавлен в базу программы.</value>
+    <value>Your recipe was successfully created and added to database.</value>
   </data>
   <data name="SecondMainMenuItem" xml:space="preserve">
-    <value>Добавить свой рецепт</value>
+    <value>Add new recipe</value>
   </data>
   <data name="SecondMenuHeader" xml:space="preserve">
-    <value>Вы выбрали найти рецепт</value>
+    <value>You chose find recipe</value>
   </data>
   <data name="SecondSecondaryMenuItem" xml:space="preserve">
-    <value>Найти рецепт по составным продуктам</value>
+    <value>Find recipe by product</value>
   </data>
   <data name="SuchRecipeNotExist" xml:space="preserve">
-    <value>Не удалось найти рецепт с данной комбинацией продуктов:</value>
+    <value>Recipe with combination of such products does not exist in app:</value>
   </data>
   <data name="Tablespoon" xml:space="preserve">
-    <value>Столовая ложка</value>
+    <value>Tablespoon</value>
   </data>
   <data name="Tablespoons" xml:space="preserve">
-    <value>Столовых ложек</value>
+    <value>Tablespoons</value>
   </data>
   <data name="TryAgain" xml:space="preserve">
-    <value>Попробуйте еще раз.</value>
+    <value>Try again.</value>
   </data>
 </root>
